@@ -235,7 +235,7 @@ GLint uniforms[NUM_UNIFORMS];
   }
   
   uint32_t *pixel_lut = (uint32_t*)self.lutData.bytes;
-  uint32_t pixel_lut_num = self.lutData.length / sizeof(uint32_t);
+  uint32_t pixel_lut_num = (uint32_t) self.lutData.length / sizeof(uint32_t);
   
   uint32_t width  = _indexesSize.width;
   uint32_t height = _indexesSize.height;
@@ -676,8 +676,8 @@ GLint uniforms[NUM_UNIFORMS];
   // Declare the number of bytes per row. Each pixel in the bitmap in this
   // example is represented by 4 bytes; 8 bits each of red, green, blue, and
   // alpha.
-  bitmapBytesPerRow   = (pixelsWide * sizeof(uint32_t));
-  bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
+  bitmapBytesPerRow   = (int) (pixelsWide * sizeof(uint32_t));
+  bitmapByteCount     = (int) (bitmapBytesPerRow * pixelsHigh);
   
   // Use the generic RGB color space.
   colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -807,7 +807,7 @@ GLint uniforms[NUM_UNIFORMS];
   }
   
   // Table must contain <= 256 entries
-  NSAssert(table.count <= 256, @"palette would be larger than 256 entries at size %d", table.count);
+  NSAssert(table.count <= 256, @"palette would be larger than 256 entries at size %d", (int)table.count);
   
   NSArray *allKeys = [table allKeys];
   NSAssert(allKeys, @"must be at least 1 pixel in table");
@@ -920,7 +920,7 @@ GLint uniforms[NUM_UNIFORMS];
   if (1) {
     NSMutableData *mColoredLut = [NSMutableData dataWithData:self.grayscaleLutData];
     
-    int numColorTableEntries = mColoredLut.length / sizeof(uint32_t);
+    int numColorTableEntries = (int) mColoredLut.length / sizeof(uint32_t);
     
     uint32_t *coloredLutDataPtr = (uint32_t *)mColoredLut.bytes;
     
